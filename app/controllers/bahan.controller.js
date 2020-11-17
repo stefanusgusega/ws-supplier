@@ -29,8 +29,10 @@ exports.getData = (req, res) => {
   
 };
 
-exports.checkJumlah = (req, res) => {
-	Bahan.checkJumlah(req.params.idbahan,req.params.jumlah,(err,data)=>{
+
+
+exports.buyBahan = (req,res) => {
+	Bahan.buyBahan(req.params.idbahan,req.params.jumlah,req.params.saldo,(err,data) => {
 		if(err) {
 			res.status(500).send({
 	        message:
@@ -41,20 +43,4 @@ exports.checkJumlah = (req, res) => {
 			res.send(data);
 		}
 	})
-  
 };
-
-exports.buyBahan = (req, res) => {
-  	Bahan.buyBahan(req.params.idbahan,req.params.jumlah,(err,data)=> {
-  		if(err) {
-			res.status(500).send({
-	        message:
-	          err.message || "Some error occurred while retrieving customers."
-	      });
-		}
-		else {
-			res.send(data);
-		}
-  	})
-};
-

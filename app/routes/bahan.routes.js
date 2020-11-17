@@ -5,8 +5,7 @@ module.exports = app => {
   // Retrieve price from bahan
   app.get("/bahan/:idbahan", bahan.getData);
 
-  // Update bahan with new jumlah
-  app.get("/bahan/:idbahan/:jumlah", bahan.buyBahan);
+  app.get("/bahan/:idbahan/:jumlah/:saldo", bahan.buyBahan);
 
   
 };
