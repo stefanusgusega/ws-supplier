@@ -32,7 +32,7 @@ exports.getData = (req, res) => {
 
 
 exports.buyBahan = (req,res) => {
-	Bahan.buyBahan(req.params.idbahan,req.params.jumlah,req.params.saldo,(err,data) => {
+	Bahan.buyBahan(req.body.jumlah,req.body.saldo,(err,data) => {
 		if(err) {
 			res.status(500).send({
 	        message:

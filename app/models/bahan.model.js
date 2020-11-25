@@ -32,20 +32,32 @@ Bahan.getData = (idbahan,result) => {
 };
 
 
-Bahan.buyBahan = (idbahan,jumlah,saldo,result) => {
-	sql.query("SELECT harga_bahan * ? as total FROM daftar_bahan WHERE id_bahan = ?",[jumlah,idbahan], (err,res) => {
+Bahan.buyBahan = (jumlah,saldo,result) => {
+	
+	sql.query("SELECT harga_bahan FROM daftar_bahan", (err,res) => {
 		if(err){
 			console.log("error: ",err);
 			result(err,null);
 			return;
 		}
-		if(res[0].total > saldo){
-			var sisaSaldo = res[0].total - saldo;
+		
+		var total = 0;
+		var i = 0;
+		jumlah.forEach(element=> {
+			if (element != 0){
+				var row = res[i];
+				total += element * row.harga_bahan; 
+			}
+			i+=1;
+		});
+		
+		if(total > saldo){
+			var sisaSaldo = total - saldo;
 			result(null, {status:false,sisa:sisaSaldo});
 	        return;
 		}
 	     else {
-	     	var sisaSaldo = saldo - res[0].total;
+	     	var sisaSaldo = saldo - total;
 	     	result(null,{status:true,sisa:sisaSaldo});
 			return;
 	     }
